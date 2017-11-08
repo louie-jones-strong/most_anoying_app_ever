@@ -1,0 +1,14 @@
+##phrase , song , start point , minimum run time,max run time##
+hello,adele_hello,35,5
+hello,lion_hello,42,5
+queen,seven_nation_army,100,5
+let,let_it_go,64,5
+i,gotta_feeling,28,5
+want,break_free,40,5
+mystery,mystery,72,5
+armadillo,armadillos,22,5
+armadillos,armadillos,22,5
+lollipop,lollipop,1,5
+base,bass,4,5
+around,buffalo_gals,67,5
+__end of file__
