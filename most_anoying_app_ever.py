@@ -4,13 +4,13 @@ import time
 import os
 import threading
 
-#google speech recognition stuff
+#google speech recognition
 from google.cloud import speech
 from google.cloud.speech import enums
 from google.cloud.speech import types
 import io
 
-#record stuff
+#record audio 
 import wave
 import pyaudio
 from array import array
@@ -36,10 +36,8 @@ class code (object):
         self.audio_CHUNK_SIZE = 1024
         self.audio_FORMAT = pyaudio.paInt16
         self.audio_RATE = self.sample_rate
-        self.stream = pyaudio.PyAudio().open(format=self.audio_FORMAT, channels=1, rate=self.audio_RATE,
-                                             input=True, output=True,
-                                             frames_per_buffer=self.audio_CHUNK_SIZE)
-        self.record(2,self.record_address+"start.wav")
+        self.stream = pyaudio.PyAudio().open( format=self.audio_FORMAT , channels=1 , rate=self.audio_RATE , input=True, output=True , frames_per_buffer=self.audio_CHUNK_SIZE )
+        self.record( 2 , self.record_address+"start.wav" )
         os.system('cls')
         return
 
@@ -47,9 +45,7 @@ class code (object):
         self.setup()
         lenght_of_rec = 2
         self.loop = 0
-
         thread_record     = threading.Thread(target = self.long_time_record        , name=0 , args=(lenght_of_rec,))
-
         thread_record.start()
 
         while True:
@@ -92,12 +88,12 @@ class code (object):
         sample_width = pyaudio.PyAudio().get_sample_size(self.audio_FORMAT)
         data = pack('<' + ('h'*len(r)), *r)
 
-        wf = wave.open(file_name, 'wb')
-        wf.setnchannels(1)
-        wf.setsampwidth(sample_width)
-        wf.setframerate(self.audio_RATE)
-        wf.writeframes(data)
-        wf.close()
+        file = wave.open(file_name, 'wb')
+        file.setnchannels(1)
+        file.setsampwidth(sample_width)
+        file.setframerate(self.audio_RATE)
+        file.writeframes(data)
+        file.close()
         return
 
     def transcribe_file(self,thread,file_name):
@@ -114,7 +110,8 @@ class code (object):
         profanity_filter=self.profanity_filter,
         #speech_contexts = self.speech_context,
         )
-
+        # need to get context to work(fill with phrase starts)
+        
         streaming_config = types.StreamingRecognitionConfig(config=config)
 
         responses = client.streaming_recognize(streaming_config, requests)
